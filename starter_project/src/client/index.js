@@ -23,15 +23,30 @@ function preformAction() {
   console.log(document.getElementById("name"));
   console.log(textareaContent);
 
-  postDate("/add", { text: textareaContent }).then(function (flag) {
-    console.log(flag);
-    getData().then(function(data){
-      console.log(data);
-      analysisData(data).then(function(res) {
-        console.log(res)
-      })
+  // postDate("/add", { text: textareaContent }).then(function (flag) {
+  //   console.log(flag);
+  //   getData().then(function (data) {
+  //     console.log(data);
+  //     analysisData(data).then(function (res) {
+  //       console.log(res);
+  //     });
+  //   });
+  // });
+  postDate("/add", { text: textareaContent })
+    .then(function (flag) {
+      console.log(flag);
+      return getData();
     })
-  });
+    .then(function (data) {
+      console.log(data);
+      return analysisData(data);
+    })
+    .then(function (res) {
+      console.log(res);
+    })
+    .catch(function (error) {
+      console.error("Error in promise chain:", error);
+    });
 }
 
 const getData = async () => {
@@ -65,23 +80,30 @@ const postDate = async (url, data) => {
 };
 
 const analysisData = async (data) => {
-  console.log("ANAALYSIS");
-  const requestOptions = {
-    method: "POST",
-    body: data,
-    redirect: "follow",
-  };
-  const response = await fetch(
-    "https://api.meaningcloud.com/sentiment-2.1",
-    requestOptions
-  );
-
+  console.log("analysisData");
+  console.log(data);
   try {
-    const res = await response.json();
-    console.log(res);
-    return res;
+    const formdata = new FormData();
+    formdata.append("key", data.key);
+    formdata.append("txt", data.txt);
+    formdata.append("lang", data.lang); // 2-letter code, like en es fr ...
+    console.log(formdata);
+    const requestOptions = {
+      method: "POST",
+      body: formdata,
+      redirect: "follow",
+    };
+    console.log(requestOptions.body);
+    const response = await fetch(
+      "https://api.meaningcloud.com/sentiment-2.1",
+      requestOptions
+    );
+    const body = await response.json();
+    console.log({ status: response.status, body });
+    return { status: response.status, body };
   } catch (error) {
-    console.log(error);
+    console.error("error", error);
+    return { status: "error", error };
   }
 };
 
