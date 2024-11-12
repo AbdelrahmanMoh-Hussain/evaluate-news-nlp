@@ -12,6 +12,8 @@ import "./styles/header.scss";
 // console.log("CHANGE!!");
 
 // sass files
+// handleSubmit()
+// checkForName()
 
 document
   .getElementById("submitButton")
@@ -19,8 +21,8 @@ document
 
 function preformAction() {
   console.log("CLICKED");
-  const textareaContent = document.getElementById("name").value;
-  console.log(document.getElementById("name"));
+  const textareaContent = document.querySelector("textarea").value;
+  console.log(document.getElementById("textarea"));
   console.log(textareaContent);
 
   // postDate("/add", { text: textareaContent }).then(function (flag) {
@@ -43,6 +45,25 @@ function preformAction() {
     })
     .then(function (res) {
       console.log(res);
+      const resElement = document.getElementById('results');
+
+      let polarity;
+      if(res.body.score_tag === "P+" || res.body.score_tag === "P"){
+        polarity = "Postive";
+      }
+      else if(res.body.score_tag == "N" || res.body.score_tag === "N+"){
+        polarity = "Negitive";
+      }
+      else {
+        polarity = "Natrual"
+      }
+
+      if(textareaContent !== ""){
+        resElement.innerHTML = `<p>polarity: ${polarity}</p>
+        <p>subjectivity: ${res.body.subjectivity}</p>
+        <p>text: ${textareaContent}</p>`
+      }
+
     })
     .catch(function (error) {
       console.error("Error in promise chain:", error);

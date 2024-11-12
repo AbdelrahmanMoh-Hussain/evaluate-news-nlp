@@ -15,7 +15,7 @@ function handleSubmit(event) {
     const formText = document.getElementById('name').value;
 
     // This is an example code that checks the submitted name. You may remove it from your code
-    checkForName(formText);
+    // checkForName(formText);
     
     // Check if the URL is valid
  

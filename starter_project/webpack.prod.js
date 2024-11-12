@@ -26,8 +26,8 @@ module.exports = {
         }),
         new WorkboxPlugin.GenerateSW()
     ],
-    devServer: {
-        port: 3000,
-        allowedHosts: 'all'
-    }
+    // devServer: {
+    //     port: 3000,
+    //     allowedHosts: 'all'
+    // }
 }
