@@ -4,7 +4,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin")
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
-    entry: './src/client/index.js',
+    entry: './src/index.js',
     mode: 'production',
     module: {
         rules: [
@@ -21,13 +21,9 @@ module.exports = {
     },
     plugins: [
         new HtmlWebPackPlugin({
-            template: "./src/client/views/index.html",
+            template: "./src/views/index.html",
             filename: "./index.html",
         }),
         new WorkboxPlugin.GenerateSW()
     ],
-    // devServer: {
-    //     port: 3000,
-    //     allowedHosts: 'all'
-    // }
 }

@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 console.log(__dirname);
 
 // Variables for url and api key
-app.use(express.static("dist"));
+app.use(express.static("./dist"));
 
 app.get("/", function (req, res) {
   console.log("HERE GET")
@@ -43,6 +43,7 @@ app.post("/add", (req, res) => {
 });
 
 // Designates what port the app will listen to for incoming requests
-app.listen(3000, function () {
-  console.log("Example app listening on port 3000!");
+const port = 8080;
+app.listen(port, function () {
+  console.log(`Running on port ${port}!`);
 });

@@ -1,28 +1,19 @@
 // js files
-import { handleSubmit } from "./js/formHandler";
-import { checkForName } from "./js/nameChecker";
+import { checkIfEmpty } from "./js/checkInputFiled";
+import { CheckPolarity } from "./js/resultChecker";
 
-import "./styles/resets.scss";
 import "./styles/base.scss";
-import "./styles/footer.scss";
-import "./styles/form.scss";
-import "./styles/header.scss";
-
-// alert("I EXIST")
-// console.log("CHANGE!!");
-
-// sass files
-// handleSubmit()
-// checkForName()
+import "./styles/foot.scss";
+import "./styles/head.scss";
 
 document
-  .getElementById("submitButton")
+  .getElementById("sumbit-btn")
   .addEventListener("click", preformAction);
 
 function preformAction() {
   console.log("CLICKED");
-  const textareaContent = document.querySelector("textarea").value;
-  console.log(document.getElementById("textarea"));
+  const textareaContent = document.getElementById("text").value;
+  console.log(document.getElementById("text"));
   console.log(textareaContent);
 
   // postDate("/add", { text: textareaContent }).then(function (flag) {
@@ -45,20 +36,12 @@ function preformAction() {
     })
     .then(function (res) {
       console.log(res);
-      const resElement = document.getElementById('results');
+      const resElement = document.getElementById('result');
 
-      let polarity;
-      if(res.body.score_tag === "P+" || res.body.score_tag === "P"){
-        polarity = "Postive";
-      }
-      else if(res.body.score_tag == "N" || res.body.score_tag === "N+"){
-        polarity = "Negitive";
-      }
-      else {
-        polarity = "Natrual"
-      }
-
-      if(textareaContent !== ""){
+      const polarity = CheckPolarity(res.body.score_tag);
+      console.log(polarity);
+      
+      if(!checkIfEmpty(textareaContent)){
         resElement.innerHTML = `<p>polarity: ${polarity}</p>
         <p>subjectivity: ${res.body.subjectivity}</p>
         <p>text: ${textareaContent}</p>`
@@ -81,6 +64,7 @@ const getData = async () => {
     console.log(error);
   }
 };
+
 const postDate = async (url, data) => {
   const response = await fetch(url, {
     method: "POST",
@@ -107,7 +91,7 @@ const analysisData = async (data) => {
     const formdata = new FormData();
     formdata.append("key", data.key);
     formdata.append("txt", data.txt);
-    formdata.append("lang", data.lang); // 2-letter code, like en es fr ...
+    formdata.append("lang", data.lang); 
     console.log(formdata);
     const requestOptions = {
       method: "POST",

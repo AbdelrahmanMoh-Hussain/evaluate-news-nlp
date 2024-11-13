@@ -4,10 +4,8 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
-  entry: "./src/client/index.js",
+  entry: "./src/index.js",
   mode: "development",
-  devtool: "source-map",
-  stats: "verbose",
   module: {
     rules: [
       {
@@ -23,21 +21,18 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: "./src/client/views/index.html",
+      template: "./src/views/index.html",
       filename: "./index.html",
     }),
     new CleanWebpackPlugin({
-      // Simulate the removal of files
       dry: true,
-      // Write Logs to Console
       verbose: true,
-      // Automatically remove all unused webpack assets on rebuild
       cleanStaleWebpackAssets: true,
       protectWebpackAssets: false,
     }),
   ],
   devServer: {
-    port: 3000,
+    port: 8080,
     allowedHosts: "all",
   },
 };
