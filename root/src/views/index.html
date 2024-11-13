@@ -24,5 +24,13 @@
     <footer>
       <p>&copy; NPL_Inc - 2024</p>
     </footer>
+
+    <script>
+      if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+              navigator.serviceWorker.register('/service-worker.js');
+          });
+      }
+  </script>
   </body>
 </html>
