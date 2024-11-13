@@ -1,7 +1,8 @@
-import { handleSubmit } from "../src/client/js/formHandler";
+import { CheckIfEmpty } from "../src/js/checkInputFiled";
 
 describe('Testing', () => {
      test('Test', () => {
-        expect(handleSubmit).toBeDefined();
+        expect(CheckIfEmpty("1")).toBe(false);
+        expect(CheckIfEmpty("a")).toBe(false);
      });
 }); 

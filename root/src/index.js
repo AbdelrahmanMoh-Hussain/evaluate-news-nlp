@@ -1,5 +1,5 @@
 // js files
-import { checkIfEmpty } from "./js/checkInputFiled";
+import { CheckIfEmpty } from "./js/checkInputFiled";
 import { CheckPolarity } from "./js/resultChecker";
 
 import "./styles/base.scss";
@@ -40,8 +40,8 @@ function preformAction() {
 
       const polarity = CheckPolarity(res.body.score_tag);
       console.log(polarity);
-      
-      if(!checkIfEmpty(textareaContent)){
+
+      if(!CheckIfEmpty(textareaContent)){
         resElement.innerHTML = `<p>polarity: ${polarity}</p>
         <p>subjectivity: ${res.body.subjectivity}</p>
         <p>text: ${textareaContent}</p>`

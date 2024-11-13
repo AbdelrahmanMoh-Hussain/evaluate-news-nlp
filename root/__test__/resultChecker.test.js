@@ -1,7 +1,10 @@
-import { checkForName } from "../src/client/js/nameChecker";
+import { CheckPolarity } from "../src/js/resultChecker";
 
 describe('Testing Container', () => {
      test('Test CheckPolarity() function', () => {
-        expect("P+").toBe("Postive");
+        expect(CheckPolarity("P+")).toBe("Positive");
+        expect(CheckPolarity("P")).toBe("Positive");
+        expect(CheckPolarity("N+")).toBe("Negative");
+        expect(CheckPolarity("N")).toBe("Negative");
      });
 }); 
